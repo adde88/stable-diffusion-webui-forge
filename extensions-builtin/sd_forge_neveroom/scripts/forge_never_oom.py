@@ -41,7 +41,7 @@ class NeverOOMForForge(scripts.Script):
                 memory_management.vram_state = memory_management.VRAMState.NO_VRAM
             else:
                 memory_management.vram_state = self.original_vram_state
-            print(f'VARM State Changed To {memory_management.vram_state.name}')
+            print(f'VRAM State Changed To: {memory_management.vram_state.name}')
             self.previous_unet_enabled = unet_enabled
 
         return
