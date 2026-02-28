@@ -29,11 +29,16 @@ class ExtraNetworkLora(extra_networks.ExtraNetwork):
 
             names.append(params.positional[0])
 
-            te_multiplier = float(params.positional[1]) if len(params.positional) > 1 else 1.0
-            te_multiplier = float(params.named.get("te", te_multiplier))
+            # --- MODIFISERING: Tillater både komma og punktum for desimaler ---
+            def to_float(val):
+                return float(str(val).replace(',', '.'))
 
-            unet_multiplier = float(params.positional[2]) if len(params.positional) > 2 else te_multiplier
-            unet_multiplier = float(params.named.get("unet", unet_multiplier))
+            te_multiplier = to_float(params.positional[1]) if len(params.positional) > 1 else 1.0
+            te_multiplier = to_float(params.named.get("te", te_multiplier))
+
+            unet_multiplier = to_float(params.positional[2]) if len(params.positional) > 2 else te_multiplier
+            unet_multiplier = to_float(params.named.get("unet", unet_multiplier))
+            # ------------------------------------------------------------------
 
             dyn_dim = int(params.positional[3]) if len(params.positional) > 3 else None
             dyn_dim = int(params.named["dyn"]) if "dyn" in params.named else dyn_dim
