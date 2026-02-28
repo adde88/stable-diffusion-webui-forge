@@ -20,7 +20,12 @@ class ExtraNetworkHypernet(extra_networks.ExtraNetwork):
             assert params.items
 
             names.append(params.items[0])
-            multipliers.append(float(params.items[1]) if len(params.items) > 1 else 1.0)
+            
+            # --- MODIFISERING: Tillater både komma og punktum ---
+            def to_float(val):
+                return float(str(val).replace(',', '.'))
+            
+            multipliers.append(to_float(params.items[1]) if len(params.items) > 1 else 1.0)
 
         hypernetwork.load_hypernetworks(names, multipliers)
 
